@@ -237,7 +237,7 @@ function CollectionTable() {
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();
-      window.location.href = "https://frontierpaymentdashboard.netlify.app/login";
+      window.location.href ;
     } catch (error) {
       Swal.fire({
         icon: "error",
