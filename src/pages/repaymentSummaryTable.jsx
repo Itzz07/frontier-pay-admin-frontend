@@ -100,7 +100,7 @@ function RepaymentSummaryTable() {
         title: 'Success',
         text: 'Record deleted successfully!'
       });
-      window.location.reload(); // Reload the page after dismissing the alert dialog
+      // window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       console.error("Error deleting record:", error.message);
       Swal.fire({
