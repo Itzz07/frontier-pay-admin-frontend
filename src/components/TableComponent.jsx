@@ -59,6 +59,7 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
               <th className=" px-1 py-2 font-bold text-xs text-gray-500">Collection Date</th>
               <th className=" px-1 py-2 font-bold text-xs text-gray-500">First Name</th>
               <th className=" px-1 py-2 font-bold text-xs text-gray-500">Surname</th>
+              <th className=" px-1 py-2 font-bold text-xs text-gray-500">Monthly Dedictable</th>
               <th className=" px-1 py-2 font-bold text-xs text-gray-500">Sum Of Expected Amount</th>
               <th className=" px-1 py-2 font-bold text-xs text-gray-500">Sum Of Collected Amount</th>
               <th className=" px-1 py-2 font-bold text-xs text-gray-500">Email</th>
@@ -74,22 +75,23 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
             ) : (
               currentEntries.map((row) => (
                 <tr key={row.id}>
-                <td className="border-t-2 border-gray-200 p-2">
+                <td className="border-t-2 border-gray-200 p-1">
                   {row.from && row.to ? `${formatDate(row.from)} - ${formatDate(row.to)}` : ""}
                 </td>
-                <td className="border-t-2 border-gray-200 p-2">
+                <td className="border-t-2 border-gray-200 p-1">
                   {row.collectionDate ? row.collectionDate : ""}
                 </td>
-                  <td className=" border-t-2 border-gray-200 p-2">{row.firstName}</td>
-                  <td className=" border-t-2 border-gray-200 p-2">{row.surName}</td>
-                  <td className=" border-t-2 border-gray-200 p-2">{summaryData[row.id] ? summaryData[row.id].expectedAmountSum : 0}</td>
-                  <td className=" border-t-2 border-gray-200 p-2">{summaryData[row.id] ? summaryData[row.id].collectedAmountSum : 0}</td>
-                  <td className=" border-t-2 border-gray-200 p-2">{row.email}</td>
-                  <td className=" border-t-2 border-gray-200 p-2">{row.phone}</td>
-                  <td className=" border-t-2 border-gray-200 p-2 flex justify-center items-center"> {/* Flex container */}
+                  <td className=" border-t-2 border-gray-200 p-1">{row.firstName}</td>
+                  <td className=" border-t-2 border-gray-200 p-1">{row.surName}</td>
+                  <td className=" border-t-2 border-gray-200 p-1">{row.amount}</td>
+                  <td className=" border-t-2 border-gray-200 p-1">{summaryData[row.id] ? summaryData[row.id].expectedAmountSum : 0}</td>
+                  <td className=" border-t-2 border-gray-200 p-1">{summaryData[row.id] ? summaryData[row.id].collectedAmountSum : 0}</td>
+                  <td className=" border-t-2 border-gray-200 p-1">{row.email}</td>
+                  <td className=" border-t-2 border-gray-200 p-1">{row.phone}</td>
+                  <td className=" border-t-2 border-gray-200 p-1 flex justify-center items-center"> {/* Flex container */}
                   <button
                     onClick={() => handleEditClient(row.id)}
-                    className="text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-blue-500 hover:text-white transition delay-150 duration-150 ease-in-out"
+                    className="text-green-500 text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-blue-500 hover:text-white transition delay-150 duration-150 ease-in-out"
                     title="Edit Client"
                   >
                     <span class="material-symbols-outlined">
@@ -99,7 +101,7 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
 
                   <button
                     onClick={() => handleShowRepaymentSummary(row.id)}
-                    className="text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-green-500 hover:text-white transition delay-150 duration-150 ease-in-out"
+                    className="text-yellow-500 text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-green-500 hover:text-white transition delay-150 duration-150 ease-in-out"
                     title="Show Repayment Summary"
                   >
                     <span class="material-symbols-outlined">
@@ -109,7 +111,7 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
 
                   <button
                     onClick={() => handleDeleteClient(row.id)}
-                    className="text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-red-500 hover:text-white transition delay-150 duration-150 ease-in-out"
+                    className="text-red-500 text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-red-500 hover:text-white transition delay-150 duration-150 ease-in-out"
                     title="Delete Client"
                   >
                     <span class="material-symbols-outlined">
