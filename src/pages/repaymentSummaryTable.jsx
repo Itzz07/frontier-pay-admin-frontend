@@ -100,7 +100,7 @@ function RepaymentSummaryTable() {
         title: 'Success',
         text: 'Record deleted successfully!'
       });
-      window.location.replace(window.location.href);
+      navigate(0);
       // window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       console.error("Error deleting record:", error.message);
@@ -148,7 +148,7 @@ function RepaymentSummaryTable() {
       });
       setIsEditing(false);
       setShowForm(false);
-      window.location.replace(window.location.href);
+      navigate(0);
       // window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       Swal.fire({
