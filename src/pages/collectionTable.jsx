@@ -253,11 +253,11 @@ function CollectionTable() {
 
   return (
     <>
-      <div className="px-2 flex flex-col items-center w-11/12 mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg">
+      <div className="pb-4 flex flex-col items-center mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg">
         {/* Navbar */}
-        <div className="flex justify-between items-center w-full px-6 h-20 bg-[#09284483] rounded-b-2xl backdrop-blur-md drop-shadow-xl shadow-black">
+        <div className="flex justify-between items-center w-full px-6 h-16 bg-[#09284483] rounded-b-3xl backdrop-blur-md drop-shadow-xl shadow-black">
           <div className="text-4xl font-bold text-white">Clients Table</div>
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex justify-center items-center ">
             {!userId ? (
               <a
                 href="/login"
@@ -289,7 +289,7 @@ function CollectionTable() {
 
         {/* ############ SEARCH INPUT ############ */}
 
-        <div className="px-1 py-3 flex justify-center items-center w-full">
+        <div className="px-1 py-3 flex justify-center items-center w-11/12">
           <div className="relative w-full max-w-md mx-auto py-0 shadow-lg shadow-gray-300 rounded-lg">
             <label htmlFor="default-search" className="sr-only">
               Search
@@ -362,7 +362,7 @@ function CollectionTable() {
         {/* {console.log("tableData:", tableData)} */}
         {console.log("tableData:", filteredData)}
 
-        <div className="w-full flex-grow">
+        <div className="w-11/12 flex-grow">
           {" "}
           {/* Utilize flex-grow to take available space */}
           <TableComponent
