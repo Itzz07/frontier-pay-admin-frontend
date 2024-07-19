@@ -91,7 +91,7 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
                   <td className=" border-t-2 border-gray-200 p-1 flex justify-center items-center"> {/* Flex container */}
                   <button
                     onClick={() => handleEditClient(row.id)}
-                    className="text-green-500 text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-blue-500 hover:text-white transition delay-150 duration-150 ease-in-out"
+                    className="text-green-500  rounded-md text-base p-1 font-bold mr-2 hover:bg-green-500 hover:text-white transition delay-150 duration-150 ease-in-out"
                     title="Edit Client"
                   >
                     <span class="material-symbols-outlined">
@@ -101,7 +101,7 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
 
                   <button
                     onClick={() => handleShowRepaymentSummary(row.id)}
-                    className="text-yellow-500 text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-green-500 hover:text-white transition delay-150 duration-150 ease-in-out"
+                    className="text-yellow-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-yellow-500 hover:text-white transition delay-150 duration-150 ease-in-out"
                     title="Show Repayment Summary"
                   >
                     <span class="material-symbols-outlined">
@@ -111,7 +111,7 @@ const TableComponent = ({ tableData, currentEntries, isLoading, handleEditClient
 
                   <button
                     onClick={() => handleDeleteClient(row.id)}
-                    className="text-red-500 text-gray-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-red-500 hover:text-white transition delay-150 duration-150 ease-in-out"
+                    className="text-red-500 rounded-md text-base p-1 font-bold mr-2 hover:bg-red-500 hover:text-white transition delay-150 duration-150 ease-in-out"
                     title="Delete Client"
                   >
                     <span class="material-symbols-outlined">

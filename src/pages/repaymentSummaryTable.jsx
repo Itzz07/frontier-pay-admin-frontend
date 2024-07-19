@@ -1,11 +1,19 @@
 import React from "react";
-import { collection, doc, deleteDoc, setDoc, updateDoc, getFirestore, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  deleteDoc,
+  setDoc,
+  updateDoc,
+  getFirestore,
+  getDocs,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2'; 
+import Swal from "sweetalert2";
 import AddRecordForm from "../components/AddRecordForm";
 import EditRecordForm from "../components/EditRecordForm";
 import firebase from "../firebase/firebaseConfig";
-import { useParams,  useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function RepaymentSummaryTable() {
   const { docId } = useParams();
@@ -19,7 +27,7 @@ function RepaymentSummaryTable() {
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingRecordId, setEditingRecordId] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const db = getFirestore();
@@ -38,14 +46,14 @@ function RepaymentSummaryTable() {
                 id: doc.id,
                 ...doc.data(),
               }));
-              data.sort((a,b) => b.timeStamp - a.timeStamp); //sort daat in descending order based on the timestamp
+              data.sort((a, b) => b.timeStamp - a.timeStamp); //sort daat in descending order based on the timestamp
               setTableData(data);
               setIsLoading(false); // Data loaded, set isLoading to false
             } catch (error) {
               console.error("Error fetching data:", error.message);
               Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
+                icon: "error",
+                title: "Oops...",
                 text: error.message,
               });
             }
@@ -60,7 +68,7 @@ function RepaymentSummaryTable() {
       return () => {
         unsubscribe();
       };
-    } 
+    }
   }, [docId, db]);
 
   const handleEditRecord = (summaryId) => {
@@ -93,22 +101,26 @@ function RepaymentSummaryTable() {
 
   const handleDeleteRecord = async (summaryId) => {
     try {
-      const summaryRef = collection(doc(db, "clients", docId), "repaymentSummary");
+      const summaryRef = collection(
+        doc(db, "clients", docId),
+        "repaymentSummary"
+      );
       await deleteDoc(doc(summaryRef, summaryId));
       await Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Record deleted successfully!'
+        icon: "success",
+        title: "Success",
+        text: "Record deleted successfully!",
       });
-      const parts = window.location.href.split('/');
-const lastPart = parts[parts.length - 1];
-      navigate(`/RepaymentSummaryTable/${lastPart}`);
-      // window.location.reload(); // Reload the page after dismissing the alert dialog
+      // const parts = window.location.href.split("/");
+      // const lastPart = parts[parts.length - 1];
+      // console.log(`/RepaymentSummaryTable/${lastPart}`);
+      // navigate(`/RepaymentSummaryTable/${lastPart}`);
+      window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       console.error("Error deleting record:", error.message);
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: "error",
+        title: "Oops...",
         text: error.message,
       });
     }
@@ -118,8 +130,10 @@ const lastPart = parts[parts.length - 1];
     e.preventDefault();
 
     try {
-      const summaryRef = collection(doc(db, "clients", docId), "repaymentSummary");
-
+      const summaryRef = collection(
+        doc(db, "clients", docId),
+        "repaymentSummary"
+      );
 
       const newRecordWithTimestamp = {
         ...newRecordData,
@@ -127,18 +141,21 @@ const lastPart = parts[parts.length - 1];
       };
 
       if (isEditing) {
-        await updateDoc(doc(summaryRef, editingRecordId), newRecordWithTimestamp);
+        await updateDoc(
+          doc(summaryRef, editingRecordId),
+          newRecordWithTimestamp
+        );
         await Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Record updated successfully!'
+          icon: "success",
+          title: "Success",
+          text: "Record updated successfully!",
         });
       } else {
         await setDoc(doc(summaryRef), newRecordWithTimestamp);
         await Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Record added successfully!'
+          icon: "success",
+          title: "Success",
+          text: "Record added successfully!",
         });
       }
 
@@ -150,23 +167,24 @@ const lastPart = parts[parts.length - 1];
       });
       setIsEditing(false);
       setShowForm(false);
-      const parts = window.location.href.split('/');
-const lastPart = parts[parts.length - 1];
-      navigate(`/RepaymentSummaryTable/${lastPart}`);
-      // window.location.reload(); // Reload the page after dismissing the alert dialog
+      // const parts = window.location.href.split("/");
+      // const lastPart = parts[parts.length - 1];
+      // console.log(`/RepaymentSummaryTable/${lastPart}`);
+      // navigate(`/RepaymentSummaryTable/${lastPart}`);
+      window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: "error",
+        title: "Oops...",
         text: error.message,
       });
     }
   };
 
   const handleBack = () => {
-    window.location.href = "/"; 
+    window.location.href = "/";
   };
-  
+
   return (
     <>
       <div className="px-2 flex flex-col items-center w-11/12 mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg">
@@ -178,10 +196,11 @@ const lastPart = parts[parts.length - 1];
             title="Back" // Tooltip text
           >
             arrow_back_ios
-            <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300 pointer-events-none">Back</span>
+            <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300 pointer-events-none">
+              Back
+            </span>
           </button>
         </div>
-  
 
         <div className="w-9/12 mx-auto mt-8">
           <button
@@ -218,22 +237,44 @@ const lastPart = parts[parts.length - 1];
             <table className="w-full border-collapse bg-white border border-gray-300">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 px-4 py-2 font-semibold">Date</th>
-                  <th className="border border-gray-300 px-4 py-2 font-semibold">Expected Amount</th>
-                  <th className="border border-gray-300 px-4 py-2 font-semibold">Collected Amount</th>
-                  <th className="border border-gray-300 px-4 py-2 font-semibold">Pending Amount</th>
-                  <th className="border border-gray-300 px-4 py-2 font-semibold">Status</th>
-                  <th className="border border-gray-300 px-4 py-2 font-semibold">Actions</th>
+                  <th className="border border-gray-300 px-4 py-2 font-semibold">
+                    Date
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 font-semibold">
+                    Expected Amount
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 font-semibold">
+                    Collected Amount
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 font-semibold">
+                    Pending Amount
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 font-semibold">
+                    Status
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 font-semibold">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {tableData.map((summary) => (
                   <tr key={summary.id}>
-                    <td className="border border-gray-300 px-4 py-2">{summary.collectionDate}</td>
-                    <td className="border border-gray-300 px-4 py-2">{summary.expectedAmount}</td>
-                    <td className="border border-gray-300 px-4 py-2">{summary.collectedAmount}</td>
-                    <td className="border border-gray-300 px-4 py-2">{summary.pendingAmount}</td>
-                    <td className="border border-gray-300 px-4 py-2">{summary.status}</td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {summary.collectionDate}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {summary.expectedAmount}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {summary.collectedAmount}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {summary.pendingAmount}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {summary.status}
+                    </td>
                     <td className="border border-gray-300 px-4 py-2">
                       <button
                         onClick={() => handleEditRecord(summary.id)}
