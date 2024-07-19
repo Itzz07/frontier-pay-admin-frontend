@@ -7,7 +7,6 @@ function EditClientForm({
   handleCancelEdit,
   isEditing, // Add isEditing as a prop
 }) {
-  
   return (
     <form
       onSubmit={(e) => handleAddOrUpdateClient(e)}
@@ -18,7 +17,7 @@ function EditClientForm({
       </h2>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block mb-2 text-gray-800">First Name</label>
+          <label className="block mb-2 text-zinc-800">First Name</label>
           <input
             type="text"
             value={newClientData.firstName}
@@ -28,52 +27,52 @@ function EditClientForm({
                 firstName: e.target.value,
               })
             }
-            className="border border-gray-300 px-4 py-2 w-full"
+            className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
             required
           />
         </div>
         <div>
-          <label className="block mb-2 text-gray-800">Surname</label>
+          <label className="block mb-2 text-zinc-800">Surname</label>
           <input
             type="text"
             value={newClientData.surName}
             onChange={(e) =>
               setNewClientData({ ...newClientData, surName: e.target.value })
             }
-            className="border border-gray-300 px-4 py-2 w-full"
+            className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
             required
           />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block mb-2 text-gray-800 ">Email</label>
+          <label className="block mb-2 text-zinc-800 ">Email</label>
           <input
             type="email"
             value={newClientData.email}
             onChange={(e) =>
               setNewClientData({ ...newClientData, email: e.target.value })
             }
-            className="border border-gray-300 px-4 py-2 w-full"
+            className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
             required
           />
         </div>
         <div>
-          <label className="block mb-2 text-gray-800">Phone</label>
+          <label className="block mb-2 text-zinc-800">Phone</label>
           <input
             type="text"
             value={newClientData.phone}
             onChange={(e) =>
               setNewClientData({ ...newClientData, phone: e.target.value })
             }
-            className="border border-gray-300 px-4 py-2 w-full"
+            className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
             required
           />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block mb-2 text-gray-800">Collection Date</label>
+          <label className="block mb-2 text-zinc-800">Collection Date</label>
           <input
             type="date"
             name="collectionDate"
@@ -85,11 +84,11 @@ function EditClientForm({
               })
             }
             placeholder="Collection Date"
-            className="border border-gray-300 px-4 py-2 w-full"
+            className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
           />
         </div>
         <div>
-          <label className="block mb-2 text-gray-800">Duration</label>
+          <label className="block mb-2 text-zinc-800">Duration</label>
           <div className="flex space-x-4">
             <input
               type="date"
@@ -100,10 +99,10 @@ function EditClientForm({
                   from: e.target.value,
                 })
               }
-              className="border border-gray-300 px-4 py-2 w-full"
+              className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
               required
             />
-            <p className="text-lg">To</p>
+            <p className="text-xl ">To</p>
             <input
               type="date"
               value={newClientData.to}
@@ -113,7 +112,7 @@ function EditClientForm({
                   to: e.target.value,
                 })
               }
-              className="border border-gray-300 px-4 py-2 w-full"
+              className="border border-zinc-300 px-4 py-2 w-full ring-1 ring-sky-500"
               required
             />
           </div>
@@ -122,14 +121,14 @@ function EditClientForm({
       <div className="flex space-x-4">
         <button
           type="submit"
-          className="bg-[#3d5fc4] text-white rounded-md text-base py-2 px-4 font-bold mr-2"
+          className="bg-sky-500 text-white rounded-md text-md py-2 px-4 font-bold mr-2"
         >
           {isEditing ? "Update" : "Add"}
         </button>
         <button
           type="button"
           onClick={handleCancelEdit}
-          className="bg-gray-400 text-white rounded-md text-base py-2 px-4 font-bold"
+          className="bg-zinc-500 text-white rounded-md text-md py-2 px-4 font-bold"
         >
           Cancel
         </button>

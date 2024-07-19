@@ -40,6 +40,7 @@ function CollectionTable() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
+  // Filt
   const db = firebase.firestore();
   // const clientsCollection = collection(db, "clients");
 
@@ -78,6 +79,14 @@ function CollectionTable() {
     };
   }, []);
 
+  // const filteredData = tableData.filter(
+  //   (item) =>
+  //     (item.firstName &&
+  //       item.firstName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (item.surName &&
+  //       item.surName.toLowerCase().includes(searchQuery.toLowerCase()))
+  // );
+
   const filteredData = tableData.filter(
     (item) =>
       (item.firstName &&
@@ -86,9 +95,17 @@ function CollectionTable() {
         item.surName.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
+  // const indexOfLastEntry = currentPage * entriesPerPage;
+  // const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  // const currentEntries = tableData.slice(indexOfFirstEntry, indexOfLastEntry);
+
+  // Pagination logic
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = tableData.slice(indexOfFirstEntry, indexOfLastEntry);
+  const currentEntries = filteredData.slice(
+    indexOfFirstEntry,
+    indexOfLastEntry
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -247,23 +264,25 @@ function CollectionTable() {
     }
   };
 
-  const handleSearch = (term) => {
-    setSearchQuery(term);
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value;
+    setSearchQuery(searchTerm);
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   return (
     <>
       <div
-        className={`pb-4 flex flex-col items-center mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg `}
+        className={`pb-8 flex flex-col items-center mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg `}
       >
         {/* Navbar */}
-        <div className="flex justify-between items-center w-full px-6 h-16 bg-[#09284483] rounded-b-3xl backdrop-blur-md drop-shadow-xl shadow-black">
-          <div className="text-4xl font-bold text-white">Clients Table</div>
+        <div className="flex justify-between items-center w-full px-6 h-16 bg-slate-500 rounded-b-3xl backdrop-blur-3xl shadow-2xl shadow-zinc-600">
+          <div className="text-3xl font-bold text-white">Clients Table</div>
           <div className="flex justify-center items-center ">
             {!userId ? (
               <a
                 href="/login"
-                className="bg-white px-4 py-2 uppercase w-auto rounded-lg text-xl text-[#4f7cff] font-semibold"
+                className="bg-white px-4 py-2 uppercase w-auto rounded-lg text-xl text-sky-500 font-semibold"
               >
                 Login
               </a>
@@ -289,9 +308,61 @@ function CollectionTable() {
           </div>
         </div>
 
-        {/* ############ SEARCH INPUT ############ */}
-
+        {/* Search bar */}
         <div className="px-1 py-3 flex justify-center items-center w-11/12">
+          <div className="relative w-full max-w-md mx-auto py-0 shadow-lg shadow-gray-300 rounded-lg">
+            <label htmlFor="default-search" className="sr-only">
+              Search
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                  className="w-4 h-4 text-gray-500"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <input
+                id="default-search"
+                type="text"
+                value={searchQuery}
+                onChange={handleSearch}
+                placeholder="Search by name..."
+                className="search-input block w-full p-5 pl-10 text-sm text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 shadow-gray-200 shadow-inner"
+                style={{
+                  height: "32px",
+                  width: "80%",
+                  outline: "none",
+                  background: "rgb(249 250 251)",
+                }}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                  }}
+                  className="absolute inset-y-0 right-0 bg-blue-700/60 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-white"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* searcj input  */}
+        {/* <div className="px-1 py-3 flex justify-center items-center w-11/12">
           <div className="relative w-full max-w-md mx-auto py-0 shadow-lg shadow-gray-300 rounded-lg">
             <label htmlFor="default-search" className="sr-only">
               Search
@@ -340,7 +411,7 @@ function CollectionTable() {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Form for adding a new client */}
         {showForm && (
           <div className=" fixed top-32 z-50 w-11/12 h-screen bg-zinc-500 bg-opacity-80 flex justify-center items-center rounded-3xl">
@@ -363,9 +434,11 @@ function CollectionTable() {
             </div>
           </div>
         )}
+
         {/* {console.log("tableData:", tableData)} */}
         {console.log("tableData:", filteredData)}
 
+        {/* table colection  */}
         <div className="w-11/12 flex-grow">
           {" "}
           {/* Utilize flex-grow to take available space */}
@@ -382,7 +455,7 @@ function CollectionTable() {
         <PaginationComponent
           currentPage={currentPage}
           paginate={paginate}
-          totalEntries={tableData.length}
+          totalEntries={filteredData.length}
           entriesPerPage={entriesPerPage}
         />
       </div>
