@@ -237,7 +237,7 @@ function CollectionTable() {
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();
-      window.location.href ;
+      window.location.href;
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -253,7 +253,9 @@ function CollectionTable() {
 
   return (
     <>
-      <div className="pb-4 flex flex-col items-center mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg">
+      <div
+        className={`pb-4 flex flex-col items-center mx-auto min-h-screen overflow-x-hidden backdrop-blur-lg `}
+      >
         {/* Navbar */}
         <div className="flex justify-between items-center w-full px-6 h-16 bg-[#09284483] rounded-b-3xl backdrop-blur-md drop-shadow-xl shadow-black">
           <div className="text-4xl font-bold text-white">Clients Table</div>
@@ -341,22 +343,24 @@ function CollectionTable() {
         </div>
         {/* Form for adding a new client */}
         {showForm && (
-          <div className="w-9/12 mx-auto mt-4">
-            {isEditing ? (
-              <EditClientForm
-                newClientData={newClientData}
-                setNewClientData={setNewClientData}
-                handleAddOrUpdateClient={handleAddOrUpdateClient}
-                handleCancelEdit={handleCancelEdit}
-                isEditing={isEditing}
-              />
-            ) : (
-              <AddClientForm
-                newClientData={newClientData}
-                setNewClientData={setNewClientData}
-                handleAddOrUpdateClient={handleAddOrUpdateClient}
-              />
-            )}
+          <div className=" fixed top-32 z-50 w-11/12 h-screen bg-zinc-500 bg-opacity-80 flex justify-center items-center rounded-3xl">
+            <div className="relative shadow-zinc-100 shadow-2xl">
+              {isEditing ? (
+                <EditClientForm
+                  newClientData={newClientData}
+                  setNewClientData={setNewClientData}
+                  handleAddOrUpdateClient={handleAddOrUpdateClient}
+                  handleCancelEdit={handleCancelEdit}
+                  isEditing={isEditing}
+                />
+              ) : (
+                <AddClientForm
+                  newClientData={newClientData}
+                  setNewClientData={setNewClientData}
+                  handleAddOrUpdateClient={handleAddOrUpdateClient}
+                />
+              )}
+            </div>
           </div>
         )}
         {/* {console.log("tableData:", tableData)} */}

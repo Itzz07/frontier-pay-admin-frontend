@@ -100,7 +100,9 @@ function RepaymentSummaryTable() {
         title: 'Success',
         text: 'Record deleted successfully!'
       });
-      navigate('/');
+      const parts = window.location.href.split('/');
+const lastPart = parts[parts.length - 1];
+      navigate(`/RepaymentSummaryTable/${lastPart}`);
       // window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       console.error("Error deleting record:", error.message);
@@ -148,7 +150,9 @@ function RepaymentSummaryTable() {
       });
       setIsEditing(false);
       setShowForm(false);
-      navigate("/");
+      const parts = window.location.href.split('/');
+const lastPart = parts[parts.length - 1];
+      navigate(`/RepaymentSummaryTable/${lastPart}`);
       // window.location.reload(); // Reload the page after dismissing the alert dialog
     } catch (error) {
       Swal.fire({
