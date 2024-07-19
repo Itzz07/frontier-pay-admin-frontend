@@ -276,7 +276,7 @@ function CollectionTable() {
                   onClick={() => {
                     handleLogout();
                   }}
-                  className="material-symbols-outlined transition delay-150 duration-300 ease-in-out bg-white/80 hover:bg-white  px-4 py-2 w-auto rounded-lg text-2xl uppercase font-bold text-[#4f7cff] relative"
+                  className="material-symbols-outlined transition delay-150 duration-300 ease-in-out bg-white/80 hover:bg-white  px-4 py-2 w-auto rounded-lg text-xl uppercase font-bold text-sky-500 relative"
                   title="Logout" // Tooltip text
                 >
                   logout
